@@ -1,4 +1,7 @@
 class Product < ActiveRecord::Base
+  default_scope :order => 'title'
+
+  # validation
   validates :title, :description, :image_url, :presence => true
   validates :title, :uniqueness => true
   validates :image_url, :format => {
