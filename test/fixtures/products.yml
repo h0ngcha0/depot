@@ -11,3 +11,10 @@ two:
   description: MyText
   image_url: MyString
   price: 9.99
+
+ruby:
+  title: Programming with Ruby 1.9
+  description: Very nice book
+  image_url: ruby.jpg
+  price: 49.00
+
