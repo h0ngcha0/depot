@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+  validates :name, :address, :email, :pay_type, :presence => true
+  validates :pay_type, :inclusion => PAYMENT_TYPES
+  
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
