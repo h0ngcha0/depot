@@ -1,7 +1,4 @@
 class OrdersController < ApplicationController
-  validates :name, :address, :email, :pay_type, :presence => true
-  validates :pay_type, :inclusion => PAYMENT_TYPES
-  
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
@@ -34,10 +31,13 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-
+    @order.add_line_items_from_cart(current_cart)
+    
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        Cart.destroy(session[:cart_id])
+        session[:cart_id] = nil
+        format.html { redirect_to store_url, notice: 'Order was successfully created.' }
         format.json { render action: 'show', status: :created, location: @order }
       else
         format.html { render action: 'new' }
