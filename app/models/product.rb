@@ -1,7 +1,7 @@
 class Product < ActiveRecord::Base
   default_scope :order => 'title'
   
-  has_many :orders, :through => :line_items
+  has_many :line_items, :dependent => :destroy
   before_destroy :ensure_not_referenced_by_any_item
 
   # validation
